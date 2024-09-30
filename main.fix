@@ -1,0 +1,66 @@
+module MiscAlgos;
+
+import MiscAlgos.ZP.Deps::{ c_P };
+
+// TODO: move to `Std`.
+loop_rep : I64 -> I64 -> I64 -> a -> ((a, I64) -> LoopResult a a) -> a;
+loop_rep = |start, end, step, state, func| (
+    if start >= end { state };
+    let res = func((state, start));
+    if res.is_break { res.as_break };
+    loop_rep(start + step, end, step, res.as_continue, func)
+);
+
+// Finaite field Z/pZ.
+// Specify p by defining `MiscAlgos.ZP.Deps::c_P`. 
+type ZP = struct { value : U32 };
+
+namespace ZP {
+    from_U32 : U32 -> ZP;
+    from_U32 = |x| ZP { value : x % Deps::c_P };
+
+    power : U32 -> ZP -> ZP;
+    power = |x, e| (
+        let res = ZP::from_U32(1_U32);
+        loop((0_U32, res, e), |(i, res, e_to_2_to_i)| (
+            if 1_U32.shift_left(i) > x { break $ res };
+            let xi = x.bit_and(1_U32.shift_left(i)) != 0_U32;
+            let res = if xi { res * e_to_2_to_i } else { res };
+            let e_to_2_to_i_plus_1 = e_to_2_to_i * e_to_2_to_i;
+            continue $ (i + 1_U32, res, e_to_2_to_i_plus_1)
+        ))
+    );
+
+    inv : ZP -> ZP;
+    inv = |x| (
+        eval assert(|_|"[ZP] inv(0)", x.@value != 0_U32);
+        x.power(Deps::c_P - 2_U32)
+    );
+
+    // binomial coefficients.
+    // binom_table(n_max).@(n).@(k) is binom(n, k) for 0 <= k <= n.
+    binom_table : I64 -> Array (Array ZP);
+    binom_table = |n_max| (
+        loop((1, [[ZP::from_U32(1_U32)]]), |(n, binoms)|
+            if n > n_max { break $ binoms };
+            let binom_n = loop((0, Array::empty(n+1)), |(k, binom_n)|
+                if k > n { break $ binom_n };
+                let x = if k == 0 || k == n { ZP::from_U32(1_U32) } else { binoms.@(n - 1).@(k - 1) + binoms.@(n - 1).@(k) };
+                continue $ (k + 1, binom_n.push_back(x))
+            );
+            continue $ (n + 1, binoms.push_back(binom_n))
+        )
+    );
+}
+
+impl ZP : Add {
+    add = |this, that| ZP { value : (this.@value + that.@value) % Deps::c_P };
+}
+
+impl ZP : Sub {
+    sub = |this, that| ZP { value : (this.@value + Deps::c_P - that.@value) % Deps::c_P };
+}
+
+impl ZP : Mul {
+    mul = |this, that| ZP { value : ((this.@value.to_U64 * that.@value.to_U64) % Deps::c_P.to_U64).to_U32 };
+}

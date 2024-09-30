@@ -1,0 +1,4 @@
+module MiscAlgos.ZP.Deps;
+
+c_P : U32;
+c_P = 1123455689_U32;
