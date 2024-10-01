@@ -1,4 +1,0 @@
-module MiscAlgos.ZP.Deps;
-
-c_P : U32;
-c_P = 1e9_U32 + 7_U32;

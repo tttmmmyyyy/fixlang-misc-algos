@@ -1,7 +1,5 @@
 module MiscAlgos;
 
-import MiscAlgos.ZP.Deps::{ c_P };
-
 // TODO: move this to `Std`?
 loop_rep : I64 -> a -> (I64 -> a -> LoopResult a a) -> a;
 loop_rep = |count, state, body| (
@@ -32,14 +30,25 @@ fold_rep_rev = |n, state, body| (
 );
 
 // Finaite field Z/pZ.
-// Specify p by defining `MiscAlgos.ZP.Deps::c_P`. 
-type ZP = struct { value : U32 };
+type ZP p = struct { value : U32, prime : p };
+
+trait p : PrimeProvider {
+    create : p;
+    value : p -> U32;
+}
 
 namespace ZP {
-    from_U32 : U32 -> ZP;
-    from_U32 = |x| ZP { value : x % Deps::c_P };
+    // Create a value.
+    // 
+    // To specify the prime p. Create a (possibly empty) type (say, `MyP`) and implement `PrimeProvider`.
+    // Then you can create a value using type annotation, e.g., `let truth_in_p = from_U32(42_U32) : ZP MyP`.
+    from_U32 : [p : PrimeProvider] U32 -> ZP p;
+    from_U32 = |x| (
+        let p = PrimeProvider::create;
+        ZP { value : x % p.value, prime : p }
+    );
 
-    power : U32 -> ZP -> ZP;
+    power : [p : PrimeProvider] U32 -> ZP p -> ZP p;
     power = |x, e| (
         let res = ZP::from_U32(1_U32);
         loop((0_U32, res, e), |(i, res, e_to_2_to_i)| (
@@ -51,34 +60,50 @@ namespace ZP {
         ))
     );
 
-    inv : ZP -> ZP;
+    inv : [p : PrimeProvider] ZP p -> ZP p;
     inv = |x| (
+        let p = x.@prime.value;
         eval assert(|_|"[ZP] divide by zero!", x.@value != 0_U32);
-        x.power(Deps::c_P - 2_U32)
+        x.power(p - 2_U32)
     );
 }
 
-impl ZP : Eq {
-    eq = |this, that| this.@value == that.@value;
+impl [p : PrimeProvider] ZP p : Eq {
+    eq = |this, that| (
+        let p = this.@prime.value;
+        this.@value == that.@value
+    );
 }
 
-impl ZP : Add {
-    add = |this, that| ZP { value : (this.@value + that.@value) % Deps::c_P };
+impl [p : PrimeProvider] ZP p : Add {
+    add = |this, that| (
+        let p = this.@prime.value;
+        ZP { value : (this.@value + that.@value) % p, prime : this.@prime }
+    );
 }
 
-impl ZP : Neg {
-    neg = |this| ZP { value : (Deps::c_P - this.@value) % Deps::c_P };
+impl [p : PrimeProvider] ZP p : Neg {
+    neg = |this| (
+        let p = this.@prime.value;
+        ZP { value : (p - this.@value) % p, prime : this.@prime }
+    );
 }
 
-impl ZP : Sub {
-    sub = |this, that| ZP { value : (this.@value + Deps::c_P - that.@value) % Deps::c_P };
+impl [p : PrimeProvider] ZP p : Sub {
+    sub = |this, that| (
+        let p = this.@prime.value;
+        ZP { value : (this.@value + p - that.@value) % p, prime : this.@prime }
+    );
 }
 
-impl ZP : Mul {
-    mul = |this, that| ZP { value : ((this.@value.to_U64 * that.@value.to_U64) % Deps::c_P.to_U64).to_U32 };
+impl [p : PrimeProvider] ZP p : Mul {
+    mul = |this, that| (
+        let p = this.@prime.value.to_U64;
+        ZP { value : ((this.@value.to_U64 * that.@value.to_U64) % p).to_U32, prime : this.@prime }
+    );
 }
 
-impl ZP : Div {
+impl [p : PrimeProvider] ZP p : Div {
     div = |this, that| this * that.inv;
 }
 
@@ -87,8 +112,8 @@ trait a : One {
     one : a;
 }
 
-impl ZP : One {
-    one = ZP { value : 1_U32 };
+impl [p : PrimeProvider] ZP p : One {
+    one = ZP::from_U32(1_U32);
 }
 
 impl I64 : One {

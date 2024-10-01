@@ -2,13 +2,30 @@ module Test;
 
 import MiscAlgos;
 
+type MyP = unbox struct {};
+
+impl MyP : PrimeProvider {
+    create = MyP {};
+    value = |_| 1e9_U32 + 7_U32;
+}
+
 test_zp : IO ();
 test_zp = (
-    eval assert_eq(|_|"test_zp 1", ZP::from_U32(1e9_U32) + ZP::from_U32(2e9_U32), ZP::from_U32(999999986_U32));
-    eval assert_eq(|_|"test_zp 2", ZP::from_U32(1e9_U32) * ZP::from_U32(2e9_U32), ZP::from_U32(98_U32));
-    eval assert_eq(|_|"test_zp 3", ZP::from_U32(1e9_U32) / ZP::from_U32(1e9_U32), ZP::from_U32(1_U32));
-    eval assert_eq(|_|"test_zp 4", ZP::from_U32(1e9_U32) - ZP::from_U32(1e9_U32), ZP::from_U32(0_U32));
-    eval assert_eq(|_|"test_zp 5", ZP::from_U32(1e9_U32) + (-ZP::from_U32(1e9_U32)), ZP::from_U32(0_U32));
+    eval assert_eq(|_|"test_zp 1", 
+        ZP::from_U32(1e9_U32) + ZP::from_U32(2e9_U32),
+        ZP::from_U32(999999986_U32) : ZP MyP);
+    eval assert_eq(|_|"test_zp 2", 
+        ZP::from_U32(1e9_U32) * ZP::from_U32(2e9_U32), 
+        ZP::from_U32(98_U32) : ZP MyP);
+    eval assert_eq(|_|"test_zp 3", 
+        ZP::from_U32(1e9_U32) / ZP::from_U32(1e9_U32),
+        ZP::from_U32(1_U32) : ZP MyP);
+    eval assert_eq(|_|"test_zp 4",
+        ZP::from_U32(1e9_U32) - ZP::from_U32(1e9_U32),
+        ZP::from_U32(0_U32) : ZP MyP);
+    eval assert_eq(|_|"test_zp 5",
+        ZP::from_U32(1e9_U32) + (-ZP::from_U32(1e9_U32)),
+        ZP::from_U32(0_U32) : ZP MyP);
     pure()
 );
 

@@ -3,7 +3,7 @@
 name = "misc-algos"
 
 ## Project version (in semver). This is a required field.
-version = "0.1.0"
+version = "0.2.0"
 
 ## Project authors.
 authors = ["tttmmmyyyy"]
@@ -59,7 +59,7 @@ files = ["main.fix"]
 ## Additional build options when running `fix test`.
 ## Available fields are almost the same as ones in "[build]".
 [build.test]
-files = ["test.fix", "test_zp_dep.fix"]
+files = ["test.fix"]
 memcheck = true
 
 ## By "[[dependencies]]" array, you can specify a Fix project as a dependency.
