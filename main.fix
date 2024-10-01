@@ -2,13 +2,33 @@ module MiscAlgos;
 
 import MiscAlgos.ZP.Deps::{ c_P };
 
-// TODO: move to `Std`.
-loop_rep : I64 -> I64 -> I64 -> a -> ((a, I64) -> LoopResult a a) -> a;
-loop_rep = |start, end, step, state, func| (
-    if start >= end { state };
-    let res = func((state, start));
-    if res.is_break { res.as_break };
-    loop_rep(start + step, end, step, res.as_continue, func)
+// TODO: move this to `Std`?
+loop_rep : I64 -> a -> (I64 -> a -> LoopResult a a) -> a;
+loop_rep = |count, state, body| (
+    loop((0, state), |(i, state)|
+        if i >= count { break $ state };
+        let res = body(i, state);
+        if res.is_break { break $ res.as_break };
+        continue $ (i + 1, res.as_continue)
+    )
+);
+
+// `fold_rep(n, state, body)` calculates `state.body(0).body(1)....body(n-1)`.
+// 
+// When `n <= 0`, it returns `state` as is.
+fold_rep : I64 -> a -> (I64 -> a -> a) -> a;
+fold_rep = |n, state, body| (
+    fold_rep_rev(n, state, |i, state| body(n - i - 1, state))
+);
+
+// `fold_rep_rev(n, state, body)` calculates `state.body(n-1).body(n-2)....body(0)`.
+// 
+// When `n <= 0`, it returns `state` as is.
+fold_rep_rev : I64 -> a -> (I64 -> a -> a) -> a;
+fold_rep_rev = |n, state, body| (
+    if n <= 0 { state };
+    let state = body(n - 1, state);
+    fold_rep_rev(n - 1, state, body)
 );
 
 // Finaite field Z/pZ.
@@ -33,28 +53,21 @@ namespace ZP {
 
     inv : ZP -> ZP;
     inv = |x| (
-        eval assert(|_|"[ZP] inv(0)", x.@value != 0_U32);
+        eval assert(|_|"[ZP] divide by zero!", x.@value != 0_U32);
         x.power(Deps::c_P - 2_U32)
     );
+}
 
-    // binomial coefficients.
-    // binom_table(n_max).@(n).@(k) is binom(n, k) for 0 <= k <= n.
-    binom_table : I64 -> Array (Array ZP);
-    binom_table = |n_max| (
-        loop((1, [[ZP::from_U32(1_U32)]]), |(n, binoms)|
-            if n > n_max { break $ binoms };
-            let binom_n = loop((0, Array::empty(n+1)), |(k, binom_n)|
-                if k > n { break $ binom_n };
-                let x = if k == 0 || k == n { ZP::from_U32(1_U32) } else { binoms.@(n - 1).@(k - 1) + binoms.@(n - 1).@(k) };
-                continue $ (k + 1, binom_n.push_back(x))
-            );
-            continue $ (n + 1, binoms.push_back(binom_n))
-        )
-    );
+impl ZP : Eq {
+    eq = |this, that| this.@value == that.@value;
 }
 
 impl ZP : Add {
     add = |this, that| ZP { value : (this.@value + that.@value) % Deps::c_P };
+}
+
+impl ZP : Neg {
+    neg = |this| ZP { value : (Deps::c_P - this.@value) % Deps::c_P };
 }
 
 impl ZP : Sub {
@@ -64,3 +77,37 @@ impl ZP : Sub {
 impl ZP : Mul {
     mul = |this, that| ZP { value : ((this.@value.to_U64 * that.@value.to_U64) % Deps::c_P.to_U64).to_U32 };
 }
+
+impl ZP : Div {
+    div = |this, that| this * that.inv;
+}
+
+// The trait to provide multiplicative unit.
+trait a : One {
+    one : a;
+}
+
+impl ZP : One {
+    one = ZP { value : 1_U32 };
+}
+
+impl I64 : One {
+    one = 1_I64;
+}
+
+// The trait of rings.
+trait Ring = Add + Neg + Sub + Mul + Zero + One;
+
+// Creates table for binomial coefficients.
+// `binom_table(m).@(n).@(k)` is binom(n, k) for 0 <= k <= n < m.
+binom_table : [r : Ring] I64 -> Array (Array r);
+binom_table = |m| (
+    fold_rep(m, [], |n, table|
+        let table = table.push_back(Array::fill(n + 1, Zero::zero));
+        fold_rep(n + 1, table, |r, table|
+            if r == 0 || r == n { table.mod(n, set(r, One::one)) };
+            let x = table.@(n - 1).@(r - 1) + table.@(n - 1).@(r);
+            table.mod(n, set(r, x))
+        )
+    )
+);
