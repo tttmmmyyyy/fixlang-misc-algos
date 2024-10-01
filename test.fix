@@ -5,20 +5,20 @@ import MiscAlgos;
 test_zp : IO ();
 test_zp = (
     eval assert_eq(|_|"test_zp 1", 
-        ZP::from_U32(1e9_U32) + ZP::from_U32(2e9_U32),
-        ZP::from_U32(999999986_U32) : ZP P1000000007);
+        from_U32(1e9_U32) + from_U32(2e9_U32),
+        from_U32(999999986_U32) : ZP P1000000007);
     eval assert_eq(|_|"test_zp 2", 
-        ZP::from_U32(1e9_U32) * ZP::from_U32(2e9_U32), 
-        ZP::from_U32(98_U32) : ZP P1000000007);
+        from_U32(1e9_U32) * from_U32(2e9_U32), 
+        from_U32(98_U32) : ZP P1000000007);
     eval assert_eq(|_|"test_zp 3", 
-        ZP::from_U32(1e9_U32) / ZP::from_U32(1e9_U32),
-        ZP::from_U32(1_U32) : ZP P1000000007);
+        from_U32(1e9_U32) / from_U32(1e9_U32),
+        from_U32(1_U32) : ZP P1000000007);
     eval assert_eq(|_|"test_zp 4",
-        ZP::from_U32(1e9_U32) - ZP::from_U32(1e9_U32),
-        ZP::from_U32(0_U32) : ZP P1000000007);
+        from_U32(1e9_U32) - from_U32(1e9_U32),
+        from_U32(0_U32) : ZP P1000000007);
     eval assert_eq(|_|"test_zp 5",
-        ZP::from_U32(1e9_U32) + (-ZP::from_U32(1e9_U32)),
-        ZP::from_U32(0_U32) : ZP P1000000007);
+        from_U32(1e9_U32) + (-from_U32(1e9_U32)),
+        from_U32(0_U32) : ZP P1000000007);
     pure()
 );
 
@@ -34,9 +34,35 @@ test_binom_table = (
     pure()
 );
 
+test_factorial_table : IO ();
+test_factorial_table = (
+    let table = factorial_table(5);
+    eval assert_eq(|_|"test_factorial_table 0", table.@(0), 1);
+    eval assert_eq(|_|"test_factorial_table 1", table.@(1), 1);
+    eval assert_eq(|_|"test_factorial_table 2", table.@(2), 2);
+    eval assert_eq(|_|"test_factorial_table 3", table.@(3), 6);
+    eval assert_eq(|_|"test_factorial_table 4", table.@(4), 24);
+    eval assert_eq(|_|"test_factorial_table 6", table.get_size, 5);
+    pure()
+);
+
+test_binomial_by_fact : IO ();
+test_binomial_by_fact = (
+    let table = factorial_table(5 + 1);
+    eval assert_eq(|_|"test_binomial_by_fact 0", binomial_by_fact(5, 0, table), 1);
+    eval assert_eq(|_|"test_binomial_by_fact 1", binomial_by_fact(5, 1, table), 5);
+    eval assert_eq(|_|"test_binomial_by_fact 2", binomial_by_fact(5, 2, table), 10);
+    eval assert_eq(|_|"test_binomial_by_fact 3", binomial_by_fact(5, 3, table), 10);
+    eval assert_eq(|_|"test_binomial_by_fact 4", binomial_by_fact(5, 4, table), 5);
+    eval assert_eq(|_|"test_binomial_by_fact 5", binomial_by_fact(5, 5, table), 1);
+    pure()
+);
+
 test : IO ();
 test = (
     eval *test_zp;
     eval *test_binom_table;
+    eval *test_factorial_table;
+    eval *test_binomial_by_fact;
     pure()
 );
