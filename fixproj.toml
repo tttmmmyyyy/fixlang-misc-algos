@@ -3,7 +3,7 @@
 name = "misc-algos"
 
 ## Project version (in semver). This is a required field.
-version = "0.1.0"
+version = "0.2.0"
 
 ## Project authors.
 authors = ["tttmmmyyyy"]
@@ -15,9 +15,8 @@ authors = ["tttmmmyyyy"]
 license = "MIT"
 
 [build]
-## Fix source files to be compiled.
+files = ["main.fix", "zp.fix"] ## Fix source files to be compiled.
 ## Merged with files specified in the command line argument.
-files = ["main.fix"]
 
 ## Object files to be linked.
 ## Merged with object files specified in the command line argument.

@@ -1,6 +1,7 @@
 module Test;
 
 import MiscAlgos;
+import MiscAlgos.ZP;
 
 test_zp : IO ();
 test_zp = (

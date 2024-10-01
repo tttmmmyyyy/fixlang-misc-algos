@@ -1,7 +1,5 @@
 module MiscAlgos;
 
-import MiscAlgos.ZP.Deps::{ c_P };
-
 // TODO: move this to `Std`?
 loop_rep : I64 -> a -> (I64 -> a -> LoopResult a a) -> a;
 loop_rep = |count, state, body| (
@@ -31,64 +29,9 @@ fold_rep_rev = |n, state, body| (
     fold_rep_rev(n - 1, state, body)
 );
 
-// Finaite field Z/pZ.
-// Specify p by defining `MiscAlgos.ZP.Deps::c_P`. 
-type ZP = struct { value : U32 };
-
-namespace ZP {
-    from_U32 : U32 -> ZP;
-    from_U32 = |x| ZP { value : x % Deps::c_P };
-
-    power : U32 -> ZP -> ZP;
-    power = |x, e| (
-        let res = ZP::from_U32(1_U32);
-        loop((0_U32, res, e), |(i, res, e_to_2_to_i)| (
-            if 1_U32.shift_left(i) > x { break $ res };
-            let xi = x.bit_and(1_U32.shift_left(i)) != 0_U32;
-            let res = if xi { res * e_to_2_to_i } else { res };
-            let e_to_2_to_i_plus_1 = e_to_2_to_i * e_to_2_to_i;
-            continue $ (i + 1_U32, res, e_to_2_to_i_plus_1)
-        ))
-    );
-
-    inv : ZP -> ZP;
-    inv = |x| (
-        eval assert(|_|"[ZP] divide by zero!", x.@value != 0_U32);
-        x.power(Deps::c_P - 2_U32)
-    );
-}
-
-impl ZP : Eq {
-    eq = |this, that| this.@value == that.@value;
-}
-
-impl ZP : Add {
-    add = |this, that| ZP { value : (this.@value + that.@value) % Deps::c_P };
-}
-
-impl ZP : Neg {
-    neg = |this| ZP { value : (Deps::c_P - this.@value) % Deps::c_P };
-}
-
-impl ZP : Sub {
-    sub = |this, that| ZP { value : (this.@value + Deps::c_P - that.@value) % Deps::c_P };
-}
-
-impl ZP : Mul {
-    mul = |this, that| ZP { value : ((this.@value.to_U64 * that.@value.to_U64) % Deps::c_P.to_U64).to_U32 };
-}
-
-impl ZP : Div {
-    div = |this, that| this * that.inv;
-}
-
 // The trait of algebraic types which provide multiplicative unit.
 trait a : One {
     one : a;
-}
-
-impl ZP : One {
-    one = ZP { value : 1_U32 };
 }
 
 impl I64 : One {
