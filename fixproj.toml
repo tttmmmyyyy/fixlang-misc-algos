@@ -6,13 +6,13 @@ name = "misc-algos"
 version = "0.1.0"
 
 ## Project authors.
-# authors = ["Alice", "Bob"]
+authors = ["tttmmmyyyy"]
 
 ## Project description.
 # description = "This is a Fix project."
 
 ## Project license.
-# license = "MIT"
+license = "MIT"
 
 [build]
 ## Fix source files to be compiled.
@@ -60,6 +60,7 @@ files = ["main.fix"]
 ## Available fields are almost the same as ones in "[build]".
 [build.test]
 files = ["test.fix", "test_zp_dep.fix"]
+memcheck = true
 
 ## By "[[dependencies]]" array, you can specify a Fix project as a dependency.
 ## Each dependent project must have "fixproj.toml" file at the project root directory.
