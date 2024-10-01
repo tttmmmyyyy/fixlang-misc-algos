@@ -82,7 +82,7 @@ impl ZP : Div {
     div = |this, that| this * that.inv;
 }
 
-// The trait to provide multiplicative unit.
+// The trait of algebraic types which provide multiplicative unit.
 trait a : One {
     one : a;
 }
