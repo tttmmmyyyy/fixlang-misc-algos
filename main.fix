@@ -37,11 +37,18 @@ trait p : PrimeProvider {
     value : p -> U32;
 }
 
+type P1000000007 = unbox struct {};
+
+impl P1000000007 : PrimeProvider {
+    create = P1000000007 {};
+    value = |p| 1000000007_U32;
+}
+
 namespace ZP {
     // Create a value.
     // 
-    // To specify the prime p. Create a (possibly empty) type (say, `MyP`) and implement `PrimeProvider`.
-    // Then you can create a value using type annotation, e.g., `let truth_in_p = from_U32(42_U32) : ZP MyP`.
+    // To specify the prime p. Create an (unboxed) empty type (say, `P`) and implement `PrimeProvider`.
+    // Then you can create a value using type annotation, e.g., `let truth_in_p = from_U32(42_U32) : ZP P`.
     from_U32 : [p : PrimeProvider] U32 -> ZP p;
     from_U32 = |x| (
         let p = PrimeProvider::create;
