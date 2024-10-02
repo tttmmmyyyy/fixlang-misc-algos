@@ -48,13 +48,13 @@ test_factorial_table = (
 
 test_binomial_by_fact : IO ();
 test_binomial_by_fact = (
-    let table = factorial_table(5 + 1);
-    eval assert_eq(|_|"test_binomial_by_fact 0", binomial_by_fact(5, 0, table), 1);
-    eval assert_eq(|_|"test_binomial_by_fact 1", binomial_by_fact(5, 1, table), 5);
-    eval assert_eq(|_|"test_binomial_by_fact 2", binomial_by_fact(5, 2, table), 10);
-    eval assert_eq(|_|"test_binomial_by_fact 3", binomial_by_fact(5, 3, table), 10);
-    eval assert_eq(|_|"test_binomial_by_fact 4", binomial_by_fact(5, 4, table), 5);
-    eval assert_eq(|_|"test_binomial_by_fact 5", binomial_by_fact(5, 5, table), 1);
+    let facts = factorial_table(5 + 1);
+    eval assert_eq(|_|"test_binomial_by_fact 0", binomial_by_facts(5, 0, facts), 1);
+    eval assert_eq(|_|"test_binomial_by_fact 1", binomial_by_facts(5, 1, facts), 5);
+    eval assert_eq(|_|"test_binomial_by_fact 2", binomial_by_facts(5, 2, facts), 10);
+    eval assert_eq(|_|"test_binomial_by_fact 3", binomial_by_facts(5, 3, facts), 10);
+    eval assert_eq(|_|"test_binomial_by_fact 4", binomial_by_facts(5, 4, facts), 5);
+    eval assert_eq(|_|"test_binomial_by_fact 5", binomial_by_facts(5, 5, facts), 1);
     pure()
 );
 

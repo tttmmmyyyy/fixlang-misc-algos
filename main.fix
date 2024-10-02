@@ -144,8 +144,8 @@ factorial_table = |n| (
     fold_rep(n - 1, table, |i, table| let i = i + 1; table.set(i, table.@(i-1) * from_U32(i.to_U32)))
 );
 
-// `binomial_by_fact(n, k, fact)` calculates `n! / (k! * (n-k)!)` using a factorial table `fact`.
-binomial_by_fact : [r : Ring, r : Div] I64 -> I64 -> Array r -> r;
-binomial_by_fact = |n, k, fact| (
-    fact.@(n) / (fact.@(k) * fact.@(n - k))
+// `binomial_by_facts(n, k, fact)` calculates `n! / (k! * (n-k)!)` using a factorial table `fact`.
+binomial_by_facts : [r : Ring, r : Div] I64 -> I64 -> Array r -> r;
+binomial_by_facts = |n, k, facts| (
+    facts.@(n) / facts.@(k) / facts.@(n - k)
 );
