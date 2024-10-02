@@ -149,3 +149,7 @@ binomial_by_facts : [r : Ring, r : Div] I64 -> I64 -> Array r -> r;
 binomial_by_facts = |n, k, facts| (
     facts.@(n) / facts.@(k) / facts.@(n - k)
 );
+
+// `monomials_by_facts(n, k, fact)` calculates the number of monomials of degree `n` with variables `k` using a factorial table `fact`.
+monomials_by_facts : [r : Ring, r : Div] I64 -> I64 -> Array r -> r;
+monomials_by_facts = |n, k, facts| binomial_by_facts(n + k - 1, n, facts);
