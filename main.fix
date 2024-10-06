@@ -147,6 +147,7 @@ factorial_table = |n| (
 // `binomial_by_facts(n, k, fact)` calculates `n! / (k! * (n-k)!)` using a factorial table `fact`.
 binomial_by_facts : [r : Ring, r : Div] I64 -> I64 -> Array r -> r;
 binomial_by_facts = |n, k, facts| (
+    if !(0 <= k && k <= n) { from_U32(0_U32) };
     facts.@(n) / facts.@(k) / facts.@(n - k)
 );
 
