@@ -2,7 +2,7 @@
 module MiscAlgos;
 
 // TODO: move this to `Std`?
-loop_rep : I64 -> a -> (I64 -> a -> LoopResult a a) -> a;
+loop_rep : I64 -> a -> (I64 -> a -> LoopState a a) -> a;
 loop_rep = |count, state, body| (
     loop((0, state), |(i, state)|
         if i >= count { break $ state };
