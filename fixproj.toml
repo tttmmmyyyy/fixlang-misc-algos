@@ -3,7 +3,7 @@
 name = "misc-algos"
 
 ## Project version (in semver). This is a required field.
-version = "0.4.3"
+version = "0.4.4"
 
 ## Project authors.
 authors = ["tttmmmyyyy"]
@@ -80,3 +80,9 @@ memcheck = true
 # name = "your-project"
 # version = "1.2.0"
 # git = { url = "https://github.com/tttmmmyyyy/your-project.git" }
+
+
+[[dependencies]]
+name = "fast-iter"
+version = "*"
+git = { url = "https://github.com/tttmmmyyyy/fixlang-fast-iter.git" }
