@@ -1,0 +1,12 @@
+module MiscAlgos.Traits;
+
+trait a : FromU32 {
+    from_U32 : U32 -> a;
+}
+
+impl I64 : FromU32 {
+    from_U32 = |x| x.to_I64;
+}
+
+// The trait of rings.
+trait Ring = Add + Neg + Sub + Mul + FromU32;
