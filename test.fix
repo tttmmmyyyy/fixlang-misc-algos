@@ -2,10 +2,12 @@ module Test;
 
 import MiscAlgos.ZP.Test;
 import MiscAlgos.Combinatorics.Test;
+import MiscAlgos.Graph.Test;
 
 test : IO ();
 test = (
     ZP.Test::test;;
     Combinatorics.Test::test;;
+    Graph.Test::test;;
     pure()
 );

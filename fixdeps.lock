@@ -1,4 +1,4 @@
-proj_file_hash = "d908a20e364a88202d60657ab453c631"
+proj_file_hash = "c2cba4d1f939aecf1505fd4914b20ae7"
 
 [[dependencies]]
 name = "fast-iter"
@@ -8,3 +8,21 @@ path = ".fixlang/deps/fast-iter_0.2.1"
 [dependencies.git]
 repo = "https://github.com/tttmmmyyyy/fixlang-fast-iter.git"
 rev = "08d46ba0cde8572b62831f8e2c9292593f6bcab5"
+
+[[dependencies]]
+name = "math"
+version = "1.0.0"
+path = ".fixlang/deps/math_1.0.0"
+
+[dependencies.git]
+repo = "https://github.com/tttmmmyyyy/fixlang-math.git"
+rev = "6b1c3810d49d0291c2a800f783be38138cf4381d"
+
+[[dependencies]]
+name = "binary-heap"
+version = "0.1.0"
+path = ".fixlang/deps/binary-heap_0.1.0"
+
+[dependencies.git]
+repo = "https://github.com/tttmmmyyyy/fixlang-binary-heap.git"
+rev = "3e1bc10fbda16ec0a49ac6fd25c00851cf5234b5"

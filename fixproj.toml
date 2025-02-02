@@ -3,7 +3,7 @@
 name = "misc-algos"
 
 ## Project version (in semver). This is a required field.
-version = "0.5.0"
+version = "0.6.0"
 
 ## Project authors.
 authors = ["tttmmmyyyy"]
@@ -13,10 +13,16 @@ authors = ["tttmmmyyyy"]
 license = "MIT"
 
 [build]
-files = ["zp.fix", "combinatorics.fix", "traits.fix"]
+files = [
+    "zp.fix",
+    "combinatorics.fix",
+    "traits.fix",
+    "geometry.fix",
+    "graph.fix",
+]
 
 [build.test]
-files = ["test.fix", "zp-test.fix", "combinatorics-test.fix"]
+files = ["test.fix", "zp-test.fix", "combinatorics-test.fix", "graph-test.fix"]
 # memcheck = true
 
 ## By "[[dependencies]]" array, you can specify a Fix project as a dependency.
@@ -43,3 +49,14 @@ files = ["test.fix", "zp-test.fix", "combinatorics-test.fix"]
 name = "fast-iter"
 version = "0.2.1"
 git = { url = "https://github.com/tttmmmyyyy/fixlang-fast-iter.git" }
+
+
+[[dependencies]]
+name = "math"
+version = "1.0.0"
+git = { url = "https://github.com/tttmmmyyyy/fixlang-math.git" }
+
+[[dependencies]]
+name = "binary-heap"
+version = "*"
+git = { url = "https://github.com/tttmmmyyyy/fixlang-binary-heap.git" }

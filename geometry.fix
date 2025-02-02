@@ -1,0 +1,22 @@
+module MiscAlgos.Geometry;
+
+import Math::{pow, sqrt};
+
+type Vec2 = unbox struct {
+    x : F64,
+    y : F64,
+};
+
+namespace Vec2 {
+    make : F64 -> F64 -> Vec2;
+    make = |x, y| Vec2 { x: x, y: y };
+
+    distance : Vec2 -> Vec2 -> F64;
+    distance = |a, b| ((a.@x - b.@x).pow(2.0) + (a.@y - b.@y).pow(2.0)).sqrt;
+
+    scaled : F64 -> Vec2 -> Vec2;
+    scaled = |s, v| Vec2 { x: v.@x * s, y: v.@y * s };
+
+    to_tuple : Vec2 -> (F64, F64);
+    to_tuple = |v| (v.@x, v.@y);
+}
