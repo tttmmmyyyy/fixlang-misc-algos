@@ -1,9 +1,6 @@
 // Miscellaneous algorithms.
 module MiscAlgos.ZP;
 
-import Iterator;
-import Std hiding {Iterator::*, Array::to_iter, String::split};
-
 import MiscAlgos.Traits;
 
 // Finaite field Z/pZ.

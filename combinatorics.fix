@@ -2,9 +2,6 @@ module MiscAlgos.Combinatorics;
 
 import MiscAlgos.Traits;
 
-import Iterator;
-import Std hiding {Iterator::*, Array::to_iter, String::split};
-
 // Creates table for binomial coefficients.
 // `binom_table(m).@(n).@(k)` is binom(n, k) for 0 <= k <= n < m.
 binom_table : [r : Ring] I64 -> Array (Array r);
