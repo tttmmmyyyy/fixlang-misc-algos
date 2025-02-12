@@ -1,13 +1,4 @@
-proj_file_hash = "efbe043d6adeb1a345749e29a64e6c60"
-
-[[dependencies]]
-name = "fast-iter"
-version = "0.2.1"
-path = ".fixlang/deps/fast-iter_0.2.1"
-
-[dependencies.git]
-repo = "https://github.com/tttmmmyyyy/fixlang-fast-iter.git"
-rev = "08d46ba0cde8572b62831f8e2c9292593f6bcab5"
+proj_file_hash = "d025cb32906646123c117e2635558255"
 
 [[dependencies]]
 name = "math"

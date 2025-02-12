@@ -1,0 +1,16 @@
+// A module that gathers useful functions for functional programming.
+module MiscAlgos.Functional;
+
+namespace Tuple2 {
+    // Swaps the elements of a tuple.
+    swap : (a, b) -> (b, a);
+    swap = |(a, b)| (b, a);
+
+    // Maps a function over the first element of a tuple.
+    map0 : (a -> c) -> (a, b) -> (c, b);
+    map0 = |f, (a, b)| (f(a), b);
+
+    // Maps a function over the second element of a tuple.
+    map1 : (b -> c) -> (a, b) -> (a, c);
+    map1 = |f, (a, b)| (a, f(b));
+}
