@@ -23,7 +23,13 @@ files = [
 ]
 
 [build.test]
-files = ["test.fix", "zp-test.fix", "combinatorics-test.fix", "graph-test.fix"]
+files = [
+    "test.fix",
+    "zp-test.fix",
+    "combinatorics-test.fix",
+    "graph-test.fix",
+    "geometry-test.fix",
+]
 # memcheck = true
 
 ## By "[[dependencies]]" array, you can specify a Fix project as a dependency.

@@ -1,0 +1,24 @@
+module MiscAlgos.Geometry.Test;
+import MiscAlgos.Geometry;
+import Math;
+
+test_vec2 : IO ();
+test_vec2 = (
+    let v1 = Vec2::make(1.0, 2.0);
+    let v2 = Vec2::make(3.0, 4.0);
+    assert_eq(|_|"", v1 + v2, Vec2::make(4.0, 6.0));;
+    assert_eq(|_|"", v1 - v2, Vec2::make(-2.0, -2.0));;
+    assert_eq(|_|"", -v1, Vec2::make(-1.0, -2.0));;
+    assert(|_|"", (Vec2::distance(v1, v2) - 2.0 * sqrt(2.0)).abs < 1.0e-5);;
+    assert_eq(|_|"", Vec2::scaled(2.0, v1), Vec2::make(2.0, 4.0));;
+    assert_eq(|_|"", Vec2::to_tuple(v1), (1.0, 2.0));;
+    assert_eq(|_|"", Vec2::dot(v1, v2), 11.0);;
+    assert(|_|"", (Vec2::length(v1) - sqrt(5.0)).abs < 1.0e-5);;
+    pure()
+);
+
+test : IO ();
+test = (
+    test_vec2;;
+    pure()
+);

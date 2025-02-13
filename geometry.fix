@@ -19,4 +19,26 @@ namespace Vec2 {
 
     to_tuple : Vec2 -> (F64, F64);
     to_tuple = |v| (v.@x, v.@y);
+
+    dot : Vec2 -> Vec2 -> F64;
+    dot = |a, b| a.@x * b.@x + a.@y * b.@y;
+
+    length : Vec2 -> F64;
+    length = |v| v.dot(v).sqrt;
+}
+
+impl Vec2 : Add {
+    add = |a, b| Vec2 { x: a.@x + b.@x, y: a.@y + b.@y };
+}
+
+impl Vec2 : Sub {
+    sub = |a, b| Vec2 { x: a.@x - b.@x, y: a.@y - b.@y };
+}
+
+impl Vec2 : Neg {
+    neg = |v| Vec2 { x: -v.@x, y: -v.@y };
+}
+
+impl Vec2 : Eq {
+    eq = |a, b| a.@x == b.@x && a.@y == b.@y;
 }
