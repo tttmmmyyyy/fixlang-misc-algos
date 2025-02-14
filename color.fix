@@ -20,6 +20,25 @@ hsv_to_rgb = |(h, s, v)| (
     (r + (v - c), g + (v - c), b + (v - c))
 );
 
+// Convert RGB to HSV.
+// 
+// The input is a tuple of (Red, Green, Blue) in the range [0, 1].
+// The output is a tuple of (Hue, Saturation, Value) in the range [0, 1].
+rgb_to_hsv : (F64, F64, F64) -> (F64, F64, F64);
+rgb_to_hsv = |(r, g, b)| (
+    let max = r.max(g).max(b);
+    let min = r.min(g).min(b);
+    let delta = max - min;
+    let h = if delta == 0.0 { 0.0 }
+            else if max == r { (g - b) / delta.fmod(6.0) }
+            else if max == g { (b - r) / delta + 2.0 }
+            else { (r - g) / delta + 4.0 };
+    let h = h / 6.0;
+    let s = if max == 0.0 { 0.0 } else { delta / max };
+    let v = max;
+    (h, s, v)
+);
+
 // Represents a positive real number by a color.
 // 
 // The first argument is the value to be represented, and the second argument is the maximum value.
