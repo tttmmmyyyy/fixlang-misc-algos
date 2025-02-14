@@ -1,5 +1,7 @@
 module MiscAlgos.Color;
 
+import Math;
+
 // Convert HSV to RGB. 
 // 
 // The input is a tuple of (Hue, Saturation, Value) in the range [0, 1].
