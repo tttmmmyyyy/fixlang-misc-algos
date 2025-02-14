@@ -17,7 +17,8 @@ hsv_to_rgb = |(h, s, v)| (
                     else if h < 4.0 { (0.0, x, c) }
                     else if h < 5.0 { (x, 0.0, c) }
                     else { (c, 0.0, x) };
-    (r + (v - c), g + (v - c), b + (v - c))
+    let m = v - c;
+    (r + m, g + m, b + m)
 );
 
 // Convert RGB to HSV.
@@ -30,9 +31,10 @@ rgb_to_hsv = |(r, g, b)| (
     let min = r.min(g).min(b);
     let delta = max - min;
     let h = if delta == 0.0 { 0.0 }
-            else if max == r { (g - b) / delta.fmod(6.0) }
+            else if max == r { ((g - b) / delta).fmod(6.0) }
             else if max == g { (b - r) / delta + 2.0 }
             else { (r - g) / delta + 4.0 };
+    let h = if h < 0.0 { h + 6.0 } else { h };
     let h = h / 6.0;
     let s = if max == 0.0 { 0.0 } else { delta / max };
     let v = max;
