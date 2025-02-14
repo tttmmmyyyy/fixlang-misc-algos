@@ -1,0 +1,31 @@
+module MiscAlgos.Color;
+
+// Convert HSV to RGB. 
+// 
+// The input is a tuple of (Hue, Saturation, Value) in the range [0, 1].
+// The output is a tuple of (Red, Green, Blue) in the range [0, 1].
+hsv_to_rgb : (F64, F64, F64) -> (F64, F64, F64);
+hsv_to_rgb = |(h, s, v)| (
+    let c = v * s;
+    let h = h * 6.0;
+    let x = c * (1.0 - (h.fmod(2.0) - 1.0).abs);
+    let (r, g, b) = if h < 1.0 { (c, x, 0.0) }
+                    else if h < 2.0 { (x, c, 0.0) }
+                    else if h < 3.0 { (0.0, c, x) }
+                    else if h < 4.0 { (0.0, x, c) }
+                    else if h < 5.0 { (x, 0.0, c) }
+                    else { (c, 0.0, x) };
+    (r + (v - c), g + (v - c), b + (v - c))
+);
+
+// Represents a positive real number by a color.
+// 
+// The first argument is the value to be represented, and the second argument is the maximum value.
+// Zero is represented by red, and the maximum value is represented by blue.
+// 
+// The output is a tuple of (Red, Green, Blue) in the range [0, 1].
+height_to_rgb : F64 -> F64 -> (F64, F64, F64);
+height_to_rgb = |v, v_max| (
+    let h = 1.0 - v / v_max;
+    hsv_to_rgb((h * 0.67, 1.0, 1.0))
+);
