@@ -1,21 +1,21 @@
 # `module MiscAlgos.Traits`
 
-# Types and aliases
+## Types and aliases
 
-# Traits and aliases
+## Traits and aliases
 
-## `namespace MiscAlgos.Traits`
+### `namespace MiscAlgos.Traits`
 
-### `trait a : FromU32`
+#### trait `a : FromU32`
 
-#### method `from_U32 : Std::U32 -> a`
+##### method `from_U32 : Std::U32 -> a`
 
-# Trait implementations
+## Trait implementations
 
 ### `impl Std::I64 : MiscAlgos.Traits::FromU32`
 
-# Values
+## Values
 
-## `namespace MiscAlgos.Traits::FromU32`
+### `namespace MiscAlgos.Traits::FromU32`
 
-### `from_U32 : [a : MiscAlgos.Traits::FromU32] Std::U32 -> a`
+#### `from_U32 : [a : MiscAlgos.Traits::FromU32] Std::U32 -> a`
