@@ -25,6 +25,10 @@ namespace Vec2 {
 
     length : Vec2 -> F64;
     length = |v| v.dot(v).sqrt;
+
+    // Calculate the Hadamard product of two vectors, i.e., element-wise multiplication.
+    hadamard : Vec2 -> Vec2 -> Vec2;
+    hadamard = |a, b| Vec2 { x: a.@x * b.@x, y: a.@y * b.@y };
 }
 
 impl Vec2 : Add {
