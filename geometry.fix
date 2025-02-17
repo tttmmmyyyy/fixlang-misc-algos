@@ -11,6 +11,9 @@ namespace Vec2 {
     make : F64 -> F64 -> Vec2;
     make = |x, y| Vec2 { x: x, y: y };
 
+    make_from_tuple : (F64, F64) -> Vec2;
+    make_from_tuple = |(x, y)| Vec2 { x: x, y: y };
+
     distance : Vec2 -> Vec2 -> F64;
     distance = |a, b| ((a.@x - b.@x).pow(2.0) + (a.@y - b.@y).pow(2.0)).sqrt;
 
