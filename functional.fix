@@ -13,4 +13,8 @@ namespace Tuple2 {
     // Maps a function over the second element of a tuple.
     map1 : (b -> c) -> (a, b) -> (a, c);
     map1 = |f, (a, b)| (a, f(b));
+
+    // Maps a function over both elements of a tuple.
+    map01 : (a -> b) -> (a, a) -> (b, b);
+    map01 = |f, (x, y)| (f(x), f(y));
 }
