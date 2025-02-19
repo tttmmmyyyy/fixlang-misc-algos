@@ -1,6 +1,6 @@
 module MiscAlgos.Geometry;
 
-import Math::{pow, sqrt};
+import Math::{pow, sqrt, atan2};
 
 type Vec2 = unbox struct {
     x : F64,
@@ -32,6 +32,16 @@ namespace Vec2 {
     // Calculate the Hadamard product of two vectors, i.e., element-wise multiplication.
     hadamard : Vec2 -> Vec2 -> Vec2;
     hadamard = |a, b| Vec2 { x: a.@x * b.@x, y: a.@y * b.@y };
+
+    // Calculates the angle between two vectors.
+    // 
+    // `v.angle(w)` returns the rotation angle in radians that rotates the vector `v` to the vector `w`.
+    angle : Vec2 -> Vec2 -> F64;
+    angle = |v, w| (
+        let dot = v.dot(w);
+        let det = v.@x * w.@y - v.@y * w.@x;
+        atan2(dot, det)
+    );
 }
 
 impl Vec2 : Add {
