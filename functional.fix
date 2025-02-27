@@ -17,4 +17,30 @@ namespace Tuple2 {
     // Maps a function over both elements of a tuple.
     map01 : (a -> b) -> (a, a) -> (b, b);
     map01 = |f, (x, y)| (f(x), f(y));
+
+    // Creates a tuple with the same element.
+    diagonal : a -> (a, a);
+    diagonal = |x| (x, x);
+}
+
+namespace Tuple3 {
+    // Maps a function over the first element of a tuple.
+    map0 : (a -> d) -> (a, b, c) -> (d, b, c);
+    map0 = |f, (a, b, c)| (f(a), b, c);
+
+    // Maps a function over the second element of a tuple.
+    map1 : (b -> d) -> (a, b, c) -> (a, d, c);
+    map1 = |f, (a, b, c)| (a, f(b), c);
+
+    // Maps a function over the third element of a tuple.
+    map2 : (c -> d) -> (a, b, c) -> (a, b, d);
+    map2 = |f, (a, b, c)| (a, b, f(c));
+
+    // Maps a function over all elements of a tuple.
+    map012 : (a -> b) -> (a, a, a) -> (b, b, b);
+    map012 = |f, (x, y, z)| (f(x), f(y), f(z));
+
+    // Creates a tuple with the same element.
+    diagonal : a -> (a, a, a);
+    diagonal = |x| (x, x, x);
 }
