@@ -3,7 +3,7 @@
 name = "misc-algos"
 
 ## Project version (in semver). This is a required field.
-version = "0.6.14"
+version = "0.6.15"
 
 ## Project authors.
 authors = ["tttmmmyyyy"]

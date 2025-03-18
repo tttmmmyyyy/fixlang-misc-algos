@@ -1,6 +1,6 @@
 module MiscAlgos.Geometry;
 
-import Math::{pow, sqrt, atan2};
+import Math::{pow, sqrt, atan2, cos, sin};
 
 type Vec2 = unbox struct {
     x : F64,
@@ -41,6 +41,17 @@ namespace Vec2 {
         let dot = v.dot(w);
         let det = v.@x * w.@y - v.@y * w.@x;
         dot.atan2(det)
+    );
+
+    // Rotate a vector by an angle.
+    rotate : F64 -> Vec2 -> Vec2;
+    rotate = |theta, v| (
+        let c = theta.cos;
+        let s = theta.sin;
+        Vec2 {
+            x: v.@x * c - v.@y * s,
+            y: v.@x * s + v.@y * c,
+        }
     );
 }
 
