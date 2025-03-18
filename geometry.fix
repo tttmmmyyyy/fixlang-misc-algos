@@ -26,8 +26,8 @@ namespace Vec2 {
     dot : Vec2 -> Vec2 -> F64;
     dot = |a, b| a.@x * b.@x + a.@y * b.@y;
 
-    length : Vec2 -> F64;
-    length = |v| v.dot(v).sqrt;
+    get_length : Vec2 -> F64;
+    get_length = |v| v.dot(v).sqrt;
 
     // Calculate the Hadamard product of two vectors, i.e., element-wise multiplication.
     hadamard : Vec2 -> Vec2 -> Vec2;
@@ -44,8 +44,8 @@ namespace Vec2 {
     );
 
     // Rotate a vector by an angle.
-    rotate : F64 -> Vec2 -> Vec2;
-    rotate = |theta, v| (
+    rotated : F64 -> Vec2 -> Vec2;
+    rotated = |theta, v| (
         let c = theta.cos;
         let s = theta.sin;
         Vec2 {
