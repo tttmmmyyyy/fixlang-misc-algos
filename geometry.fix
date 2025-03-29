@@ -79,6 +79,9 @@ type Rectangle = unbox struct {
 };
 
 namespace Rectangle {
+    make : F64 -> F64 -> F64 -> F64 -> Rectangle;
+    make = |x, y, w, h| Rectangle { x: x, y: y, w: w, h: h };
+
     from_pos_size : Vec2 -> Vec2 -> Rectangle;
     from_pos_size = |pos, size| Rectangle { x: pos.@x, y: pos.@y, w: size.@x, h: size.@y };
 
