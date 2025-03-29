@@ -26,8 +26,8 @@ namespace Vec2 {
     dot : Vec2 -> Vec2 -> F64;
     dot = |a, b| a.@x * b.@x + a.@y * b.@y;
 
-    get_length : Vec2 -> F64;
-    get_length = |v| v.dot(v).sqrt;
+    @length : Vec2 -> F64;
+    @length = |v| v.dot(v).sqrt;
 
     // Calculate the Hadamard product of two vectors, i.e., element-wise multiplication.
     hadamard : Vec2 -> Vec2 -> Vec2;
@@ -77,3 +77,11 @@ type Rectangle = unbox struct {
     w : F64,
     h : F64,
 };
+
+namespace Rectangle {
+    @pos : Rectangle -> Vec2;
+    @pos = |r| Vec2 { x: r.@x, y: r.@y };
+
+    @size : Rectangle -> Vec2;
+    @size = |r| Vec2 { x: r.@w, y: r.@h };
+}
