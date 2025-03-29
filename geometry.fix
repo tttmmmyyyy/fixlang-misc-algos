@@ -70,3 +70,10 @@ impl Vec2 : Neg {
 impl Vec2 : Eq {
     eq = |a, b| a.@x == b.@x && a.@y == b.@y;
 }
+
+type Rectangle = unbox struct {
+    x : F64,
+    y : F64,
+    w : F64,
+    h : F64,
+};
