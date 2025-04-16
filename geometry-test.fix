@@ -13,7 +13,7 @@ test_vec2 = (
     assert_eq(|_|"", Vec2::scaled(2.0, v1), Vec2::make(2.0, 4.0));;
     assert_eq(|_|"", Vec2::to_tuple(v1), (1.0, 2.0));;
     assert_eq(|_|"", Vec2::dot(v1, v2), 11.0);;
-    assert(|_|"", (get_length(v1) - sqrt(5.0)).abs < 1.0e-5);;
+    assert(|_|"", (v1.@length - sqrt(5.0)).abs < 1.0e-5);;
     pure()
 );
 
