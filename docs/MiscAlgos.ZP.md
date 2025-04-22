@@ -1,59 +1,81 @@
-# `module MiscAlgos.ZP`
+# MiscAlgos.ZP
+
+Defined in misc-algos@0.7.2
 
 Miscellaneous algorithms.
 
+## Values
+
+### namespace MiscAlgos.ZP::PrimeProvider
+
+#### create
+
+Type: `[p : MiscAlgos.ZP::PrimeProvider] p`
+
+#### value
+
+Type: `[p : MiscAlgos.ZP::PrimeProvider] p -> Std::U32`
+
+### namespace MiscAlgos.ZP::ZP
+
+#### inv
+
+Type: `[p : MiscAlgos.ZP::PrimeProvider] MiscAlgos.ZP::ZP p -> MiscAlgos.ZP::ZP p`
+
+#### power
+
+Type: `[p : MiscAlgos.ZP::PrimeProvider] Std::U32 -> MiscAlgos.ZP::ZP p -> MiscAlgos.ZP::ZP p`
+
 ## Types and aliases
 
-### `namespace MiscAlgos.ZP`
+### namespace MiscAlgos.ZP
 
-#### `type P1000000007 = unbox struct { ...fields... }`
+#### P1000000007
 
-#### `type ZP p = unbox struct { ...fields... }`
+Defined as: `type P1000000007 = unbox struct { ...fields... }`
+
+#### ZP
+
+Defined as: `type ZP p = unbox struct { ...fields... }`
 
 Finaite field Z/pZ.
 
-##### field `value : Std::U32`
+##### field `value`
 
-##### field `prime : p`
+Type: `Std::U32`
+
+##### field `prime`
+
+Type: `p`
 
 ## Traits and aliases
 
-### `namespace MiscAlgos.ZP`
+### namespace MiscAlgos.ZP
 
 #### trait `p : PrimeProvider`
 
-##### method `create : p`
+##### method `create`
 
-##### method `value : p -> Std::U32`
+Type: `p`
+
+##### method `value`
+
+Type: `p -> Std::U32`
 
 ## Trait implementations
 
-### `impl MiscAlgos.ZP::P1000000007 : MiscAlgos.ZP::PrimeProvider`
+### impl `MiscAlgos.ZP::P1000000007 : MiscAlgos.ZP::PrimeProvider`
 
-### `impl [p : MiscAlgos.ZP::PrimeProvider] MiscAlgos.ZP::ZP p : MiscAlgos.Traits::FromU32`
+### impl `[p : MiscAlgos.ZP::PrimeProvider] MiscAlgos.ZP::ZP p : MiscAlgos.Traits::FromU32`
 
-### `impl [p : MiscAlgos.ZP::PrimeProvider] MiscAlgos.ZP::ZP p : Std::Add`
+### impl `[p : MiscAlgos.ZP::PrimeProvider] MiscAlgos.ZP::ZP p : Std::Add`
 
-### `impl [p : MiscAlgos.ZP::PrimeProvider] MiscAlgos.ZP::ZP p : Std::Div`
+### impl `[p : MiscAlgos.ZP::PrimeProvider] MiscAlgos.ZP::ZP p : Std::Div`
 
-### `impl [p : MiscAlgos.ZP::PrimeProvider] MiscAlgos.ZP::ZP p : Std::Eq`
+### impl `[p : MiscAlgos.ZP::PrimeProvider] MiscAlgos.ZP::ZP p : Std::Eq`
 
-### `impl [p : MiscAlgos.ZP::PrimeProvider] MiscAlgos.ZP::ZP p : Std::Mul`
+### impl `[p : MiscAlgos.ZP::PrimeProvider] MiscAlgos.ZP::ZP p : Std::Mul`
 
-### `impl [p : MiscAlgos.ZP::PrimeProvider] MiscAlgos.ZP::ZP p : Std::Neg`
+### impl `[p : MiscAlgos.ZP::PrimeProvider] MiscAlgos.ZP::ZP p : Std::Neg`
 
-### `impl [p : MiscAlgos.ZP::PrimeProvider] MiscAlgos.ZP::ZP p : Std::Sub`
-
-## Values
-
-### `namespace MiscAlgos.ZP::PrimeProvider`
-
-#### `create : [p : MiscAlgos.ZP::PrimeProvider] p`
-
-#### `value : [p : MiscAlgos.ZP::PrimeProvider] p -> Std::U32`
-
-### `namespace MiscAlgos.ZP::ZP`
-
-#### `inv : [p : MiscAlgos.ZP::PrimeProvider] MiscAlgos.ZP::ZP p -> MiscAlgos.ZP::ZP p`
-
-#### `power : [p : MiscAlgos.ZP::PrimeProvider] Std::U32 -> MiscAlgos.ZP::ZP p -> MiscAlgos.ZP::ZP p`
+### impl `[p : MiscAlgos.ZP::PrimeProvider] MiscAlgos.ZP::ZP p : Std::Sub`

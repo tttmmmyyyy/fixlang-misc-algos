@@ -36,6 +36,11 @@ namespace Vec2 {
     // Calculates the angle between two vectors.
     // 
     // `angle(v, w)` returns the rotation angle in radians that rotates the vector `v` to the vector `w`.
+    // 
+    // # Parameters
+    // 
+    // * `v` - The first vector.
+    // * `w` - The second vector.
     angle : Vec2 -> Vec2 -> F64;
     angle = |v, w| (
         let dot = v.dot(w);
