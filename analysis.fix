@@ -1,0 +1,14 @@
+// Module for mathematical analysis.
+module MiscAlgos.Analysis;
+
+import Math;
+
+// Normalize a real number using the atan function.
+// 
+// Positive numbers are normalized to the range [0, 1),
+// and negative numbers are normalized to the range (-1, 0].
+// 
+// # Parameters
+// * `x` - The real number to normalize.
+normalize_atan : F64 -> F64;
+normalize_atan = |x| 2.0 / pi64 * atan(pi64 / 2.0 * x);

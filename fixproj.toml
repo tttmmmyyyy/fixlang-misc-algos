@@ -3,7 +3,7 @@
 name = "misc-algos"
 
 ## Project version (in semver). This is a required field.
-version = "0.7.2"
+version = "0.7.3"
 
 ## Project authors.
 authors = ["tttmmmyyyy"]
@@ -21,6 +21,7 @@ files = [
     "graph.fix",
     "functional.fix",
     "color.fix",
+    "analysis.fix",
 ]
 
 [build.test]
