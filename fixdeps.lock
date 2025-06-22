@@ -1,19 +1,28 @@
-proj_file_hash = "d025cb32906646123c117e2635558255"
+proj_file_hash = "c03413cef014fa5da2c6b9ff62df6e62"
 
 [[dependencies]]
-name = "math"
-version = "1.0.0"
-path = ".fixlang/deps/math_1.0.0"
+name = "bool-array"
+version = "0.1.0"
+path = ".fixlang/deps/bool-array_0.1.0"
 
 [dependencies.git]
-repo = "https://github.com/tttmmmyyyy/fixlang-math.git"
-rev = "6b1c3810d49d0291c2a800f783be38138cf4381d"
+repo = "https://github.com/tttmmmyyyy/bool-array.git"
+rev = "19d64f93757447238035c7f332a5ad1646e18a83"
 
 [[dependencies]]
 name = "binary-heap"
-version = "0.1.0"
-path = ".fixlang/deps/binary-heap_0.1.0"
+version = "0.1.1"
+path = ".fixlang/deps/binary-heap_0.1.1"
 
 [dependencies.git]
 repo = "https://github.com/tttmmmyyyy/fixlang-binary-heap.git"
-rev = "3e1bc10fbda16ec0a49ac6fd25c00851cf5234b5"
+rev = "3b7972d5ec6ff814db5de4f6ade3c83dd9c8d4e7"
+
+[[dependencies]]
+name = "math"
+version = "1.1.2"
+path = ".fixlang/deps/math_1.1.2"
+
+[dependencies.git]
+repo = "https://github.com/tttmmmyyyy/fixlang-math.git"
+rev = "bac9ade9118530115eda0a302ade1bb0d6bd928b"

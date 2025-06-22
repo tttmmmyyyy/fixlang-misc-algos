@@ -1,14 +1,14 @@
 module Test;
 
 import MiscAlgos.ZP.Test;
-import MiscAlgos.Combinatorics.Test;
+import MiscAlgos.Arithmetic.Test;
 import MiscAlgos.Graph.Test;
 import MiscAlgos.Geometry.Test;
 
 test : IO ();
 test = (
     ZP.Test::test;;
-    Combinatorics.Test::test;;
+    Arithmetic.Test::test;;
     Graph.Test::test;;
     Geometry.Test::test;;
     pure()

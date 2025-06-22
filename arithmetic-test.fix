@@ -1,0 +1,160 @@
+module MiscAlgos.Arithmetic.Test;
+
+import MiscAlgos.Arithmetic;
+import BoolArray;
+
+test_binom_table : IO ();
+test_binom_table = (
+    let table = binom_table(5);
+    assert_eq(|_|"test_binom_table 0", table.@(0), [1]);;
+    assert_eq(|_|"test_binom_table 1", table.@(1), [1, 1]);;
+    assert_eq(|_|"test_binom_table 2", table.@(2), [1, 2, 1]);;
+    assert_eq(|_|"test_binom_table 3", table.@(3), [1, 3, 3, 1]);;
+    assert_eq(|_|"test_binom_table 4", table.@(4), [1, 4, 6, 4, 1]);;
+    assert_eq(|_|"test_binom_table 5", table.get_size, 5);;
+    pure()
+);
+
+test_factorial_table : IO ();
+test_factorial_table = (
+    let table = factorial_table(5);
+    assert_eq(|_|"test_factorial_table 0", table.@(0), 1);;
+    assert_eq(|_|"test_factorial_table 1", table.@(1), 1);;
+    assert_eq(|_|"test_factorial_table 2", table.@(2), 2);;
+    assert_eq(|_|"test_factorial_table 3", table.@(3), 6);;
+    assert_eq(|_|"test_factorial_table 4", table.@(4), 24);;
+    assert_eq(|_|"test_factorial_table 6", table.get_size, 5);;
+    pure()
+);
+
+test_binomial_by_fact : IO ();
+test_binomial_by_fact = (
+    let facts = factorial_table(5 + 1);
+    assert_eq(|_|"test_binomial_by_fact 0", binomial_by_facts(5, 0, facts), 1);;
+    assert_eq(|_|"test_binomial_by_fact 1", binomial_by_facts(5, 1, facts), 5);;
+    assert_eq(|_|"test_binomial_by_fact 2", binomial_by_facts(5, 2, facts), 10);;
+    assert_eq(|_|"test_binomial_by_fact 3", binomial_by_facts(5, 3, facts), 10);;
+    assert_eq(|_|"test_binomial_by_fact 4", binomial_by_facts(5, 4, facts), 5);;
+    assert_eq(|_|"test_binomial_by_fact 5", binomial_by_facts(5, 5, facts), 1);;
+    pure()
+);
+
+test_prime_table : IO ();
+test_prime_table = (
+    let prime_table = make_prime_table(20);
+    assert_eq(|_|"test_prime_table 0", prime_table.@(0), false);;
+    assert_eq(|_|"test_prime_table 1", prime_table.@(1), false);;
+    assert_eq(|_|"test_prime_table 2", prime_table.@(2), true);;
+    assert_eq(|_|"test_prime_table 3", prime_table.@(3), true);;
+    assert_eq(|_|"test_prime_table 4", prime_table.@(4), false);;
+    assert_eq(|_|"test_prime_table 5", prime_table.@(5), true);;
+    assert_eq(|_|"test_prime_table 6", prime_table.@(6), false);;
+    assert_eq(|_|"test_prime_table 7", prime_table.@(7), true);;
+    assert_eq(|_|"test_prime_table 8", prime_table.@(8), false);;
+    assert_eq(|_|"test_prime_table 9", prime_table.@(9), false);;
+    assert_eq(|_|"test_prime_table 10", prime_table.@(10), false);;
+    assert_eq(|_|"test_prime_table 11", prime_table.@(11), true);;
+    assert_eq(|_|"test_prime_table 12", prime_table.@(12), false);;
+    assert_eq(|_|"test_prime_table 13", prime_table.@(13), true);;
+    assert_eq(|_|"test_prime_table 14", prime_table.@(14), false);;
+    assert_eq(|_|"test_prime_table 15", prime_table.@(15), false);;
+    assert_eq(|_|"test_prime_table 16", prime_table.@(16), false);;
+    assert_eq(|_|"test_prime_table 17", prime_table.@(17), true);;
+    assert_eq(|_|"test_prime_table 18", prime_table.@(18), false);;
+    assert_eq(|_|"test_prime_table 19", prime_table.@(19), true);;
+    pure()
+);
+
+test_prime_list : IO ();
+test_prime_list = (
+    assert_eq(|_|"test_prime_list 1", make_prime_list(20).map(to_I64), [2, 3, 5, 7, 11, 13, 17, 19]);;
+    pure()
+);
+
+test_factorize : IO ();
+test_factorize = (
+    assert_eq(|_|"test_factorize 1", factorize_flat(1), []);;
+    assert_eq(|_|"test_factorize 2", factorize_flat(2), [2].map(to_U32));;
+    assert_eq(|_|"test_factorize 3", factorize_flat(3), [3].map(to_U32));;
+    assert_eq(|_|"test_factorize 4", factorize_flat(4), [2, 2].map(to_U32));;
+    assert_eq(|_|"test_factorize 5", factorize_flat(5), [5].map(to_U32));;
+    assert_eq(|_|"test_factorize 6", factorize_flat(6), [2, 3].map(to_U32));;
+    assert_eq(|_|"test_factorize 7", factorize_flat(7), [7].map(to_U32));;
+    assert_eq(|_|"test_factorize 8", factorize_flat(8), [2, 2, 2].map(to_U32));;
+    assert_eq(|_|"test_factorize 9", factorize_flat(9), [3, 3].map(to_U32));;
+    assert_eq(|_|"test_factorize 10", factorize_flat(10), [2, 5].map(to_U32));;
+    assert_eq(|_|"test_factorize 11", factorize_flat(11), [11].map(to_U32));;
+    assert_eq(|_|"test_factorize 12", factorize_flat(12), [2, 2, 3].map(to_U32));;
+    assert_eq(|_|"test_factorize 13", factorize_flat(13), [13].map(to_U32));;
+    assert_eq(|_|"test_factorize 14", factorize_flat(14), [2, 7].map(to_U32));;
+    assert_eq(|_|"test_factorize 15", factorize_flat(15), [3, 5].map(to_U32));;
+    assert_eq(|_|"test_factorize 16", factorize_flat(16), [2, 2, 2, 2].map(to_U32));;
+    assert_eq(|_|"test_factorize 17", factorize_flat(17), [17].map(to_U32));;
+    assert_eq(|_|"test_factorize 18", factorize_flat(18), [2, 3, 3].map(to_U32));;
+    assert_eq(|_|"test_factorize 19", factorize_flat(19), [19].map(to_U32));;
+    assert_eq(|_|"test_factorize 20", factorize_flat(20), [2, 2, 5].map(to_U32));;
+    pure()
+);
+
+test_factorize_exp : IO ();
+test_factorize_exp = (
+    assert_eq(|_|"test_factorize_exp 1", factorize_exp(1), []);;
+    assert_eq(|_|"test_factorize_exp 2", factorize_exp(2).map(|(p, e)| (p.to_I64, e.to_I64)), [(2, 1)]);;
+    assert_eq(|_|"test_factorize_exp 3", factorize_exp(3).map(|(p, e)| (p.to_I64, e.to_I64)), [(3, 1)]);;
+    assert_eq(|_|"test_factorize_exp 4", factorize_exp(4).map(|(p, e)| (p.to_I64, e.to_I64)), [(2, 2)]);;
+    assert_eq(|_|"test_factorize_exp 5", factorize_exp(5).map(|(p, e)| (p.to_I64, e.to_I64)), [(5, 1)]);;
+    assert_eq(|_|"test_factorize_exp 6", factorize_exp(6).map(|(p, e)| (p.to_I64, e.to_I64)), [(2, 1), (3, 1)]);;
+    assert_eq(|_|"test_factorize_exp 7", factorize_exp(7).map(|(p, e)| (p.to_I64, e.to_I64)), [(7, 1)]);;
+    assert_eq(|_|"test_factorize_exp 8", factorize_exp(8).map(|(p, e)| (p.to_I64, e.to_I64)), [(2, 3)]);;
+    assert_eq(|_|"test_factorize_exp 9", factorize_exp(9).map(|(p, e)| (p.to_I64, e.to_I64)), [(3, 2)]);;
+    assert_eq(|_|"test_factorize_exp 10", factorize_exp(10).map(|(p, e)| (p.to_I64, e.to_I64)), [(2, 1), (5, 1)]);;
+    assert_eq(|_|"test_factorize_exp 11", factorize_exp(11).map(|(p, e)| (p.to_I64, e.to_I64)), [(11, 1)]);;
+    assert_eq(|_|"test_factorize_exp 12", factorize_exp(12).map(|(p, e)| (p.to_I64, e.to_I64)), [(2, 2), (3, 1)]);;
+    assert_eq(|_|"test_factorize_exp 13", factorize_exp(13).map(|(p, e)| (p.to_I64, e.to_I64)), [(13, 1)]);;
+    assert_eq(|_|"test_factorize_exp 14", factorize_exp(14).map(|(p, e)| (p.to_I64, e.to_I64)), [(2, 1), (7, 1)]);;
+    assert_eq(|_|"test_factorize_exp 15", factorize_exp(15).map(|(p, e)| (p.to_I64, e.to_I64)), [(3, 1), (5, 1)]);;
+    assert_eq(|_|"test_factorize_exp 16", factorize_exp(16).map(|(p, e)| (p.to_I64, e.to_I64)), [(2, 4)]);;
+    assert_eq(|_|"test_factorize_exp 17", factorize_exp(17).map(|(p, e)| (p.to_I64, e.to_I64)), [(17, 1)]);;
+    assert_eq(|_|"test_factorize_exp 18", factorize_exp(18).map(|(p, e)| (p.to_I64, e.to_I64)), [(2, 1), (3, 2)]);;
+    assert_eq(|_|"test_factorize_exp 19", factorize_exp(19).map(|(p, e)| (p.to_I64, e.to_I64)), [(19, 1)]);;
+    assert_eq(|_|"test_factorize_exp 20", factorize_exp(20).map(|(p, e)| (p.to_I64, e.to_I64)), [(2, 2), (5, 1)]);;
+    pure()
+);
+
+test_euler_tortient : IO ();
+test_euler_tortient = (
+    assert_eq(|_|"test_euler_tortient 1", euler_tortient(1), 1);;
+    assert_eq(|_|"test_euler_tortient 2", euler_tortient(2), 1);;
+    assert_eq(|_|"test_euler_tortient 3", euler_tortient(3), 2);;
+    assert_eq(|_|"test_euler_tortient 4", euler_tortient(4), 2);;
+    assert_eq(|_|"test_euler_tortient 5", euler_tortient(5), 4);;
+    assert_eq(|_|"test_euler_tortient 6", euler_tortient(6), 2);;
+    assert_eq(|_|"test_euler_tortient 7", euler_tortient(7), 6);;
+    assert_eq(|_|"test_euler_tortient 8", euler_tortient(8), 4);;
+    assert_eq(|_|"test_euler_tortient 9", euler_tortient(9), 6);;
+    assert_eq(|_|"test_euler_tortient 10", euler_tortient(10), 4);;
+    assert_eq(|_|"test_euler_tortient 11", euler_tortient(11), 10);;
+    assert_eq(|_|"test_euler_tortient 12", euler_tortient(12), 4);;
+    assert_eq(|_|"test_euler_tortient 13", euler_tortient(13), 12);;
+    assert_eq(|_|"test_euler_tortient 14", euler_tortient(14), 6);;
+    assert_eq(|_|"test_euler_tortient 15", euler_tortient(15), 8);;
+    assert_eq(|_|"test_euler_tortient 16", euler_tortient(16), 8);;
+    assert_eq(|_|"test_euler_tortient 17", euler_tortient(17), 16);;
+    assert_eq(|_|"test_euler_tortient 18", euler_tortient(18), 6);;
+    assert_eq(|_|"test_euler_tortient 19", euler_tortient(19), 18);;
+    assert_eq(|_|"test_euler_tortient 20", euler_tortient(20), 8);;
+    pure()
+);    
+
+test : IO ();
+test = (
+    test_binom_table;;
+    test_factorial_table;;
+    test_binomial_by_fact;;
+    test_prime_table;;
+    test_prime_list;;
+    test_factorize;;
+    test_factorize_exp;;
+    test_euler_tortient;;
+    pure()
+);

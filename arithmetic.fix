@@ -1,0 +1,129 @@
+module MiscAlgos.Arithmetic;
+
+import MiscAlgos.Traits;
+import BoolArray;
+
+// Creates table for binomial coefficients.
+// `binom_table(m).@(n).@(k)` is binom(n, k) for 0 <= k <= n < m.
+binom_table : [r : Ring] I64 -> Array (Array r);
+binom_table = |m| (
+    range(0, m).fold([], |n, table|
+        let table = table.push_back(Array::fill(n + 1, from_U32(0_U32)));
+        range(0, n + 1).fold(table, |r, table|
+            if r == 0 || r == n { table.mod(n, set(r, from_U32(1_U32))) };
+            let x = table.@(n - 1).@(r - 1) + table.@(n - 1).@(r);
+            table.mod(n, set(r, x))
+        )
+    )
+);
+
+// `factorial_table(n)` returns an array of `n!` for 0 <= i < n.
+factorial_table : [r : Ring] I64 -> Array r;
+factorial_table = |n| (
+    let table = Array::fill(n, from_U32(0_U32));
+    let table = table.set(0, from_U32(1_U32));
+    range(0, n - 1).fold(table, |i, table| let i = i + 1; table.set(i, table.@(i-1) * from_U32(i.to_U32)))
+);
+
+// `binomial_by_facts(n, k, fact)` calculates `n! / (k! * (n-k)!)` using a factorial table `fact`.
+binomial_by_facts : [r : Ring, r : Div] I64 -> I64 -> Array r -> r;
+binomial_by_facts = |n, k, facts| (
+    if !(0 <= k && k <= n) { from_U32(0_U32) };
+    facts.@(n) / facts.@(k) / facts.@(n - k)
+);
+
+// `monomials_by_facts(n, k, fact)` calculates the number of monomials of degree `n` with `k` variables using a factorial table `fact`.
+monomials_by_facts : [r : Ring, r : Div] I64 -> I64 -> Array r -> r;
+monomials_by_facts = |n, k, facts| binomial_by_facts(n + k - 1, n, facts);
+
+// Creates a prime table for the range [0, n).
+//
+// The array `table` is a prime table, meaning table[n] is true if n is prime, false otherwise.
+//
+// Supports up to around 10^10.
+//
+// # Parameters
+// - `size` : Size of the prime table.
+make_prime_table : I64 -> BoolArray;
+make_prime_table = |size| (
+    let table = BoolArray::make(size).fill_true;
+    let size = table.get_size;
+    let table = table.set(0, false).set(1, false);
+    let table = Iterator::range(2, size).loop_iter(table, |n, table|
+        if n >= (size - 1) / n { break $ table };
+        if !table.@(n) { continue $ table };
+        let table = Iterator::range_step(2 * n, size, n).fold(table, |m, table| table.set(m, false));
+        continue $ table
+    );
+    table
+);
+
+// Creates a list of primes in the range [0, n)
+//
+// # Parameters
+// - `n` : Upper bound for primes (exclusive)
+make_prime_list : I64 -> Array U32;
+make_prime_list = |n| (
+    let table = make_prime_table(n);
+    // eval debug_println $ "make_prime_list ok";
+    let count = Iterator::range(0, n).fold(0, |i, cnt| if table.@(i) { cnt + 1 } else { cnt });
+    // eval debug_println $ "count ok: " + count.to_string;
+    let list = Array::empty(count);
+    // eval debug_println $ "malloc ok: ";
+    let list = Iterator::range(0, n).fold(list, |p, list|
+        if table.@(p) { list.push_back(p.to_U32) } else { list }
+    );
+    list
+);
+
+// Performs integer factorization of a given number
+//
+// # Parameters
+// - `n` : Number to factorize
+factorize_flat : I64 -> Array U32;
+factorize_flat = |n| (
+    loop((2, n, []), |(d, n, factors)|
+        if n == 1 { break $ factors };
+        if n % d != 0 { continue $ (d + 1, n, factors) };
+        continue $ (d, n / d, factors.push_back(d.to_U32))
+    )
+);
+
+// Performs prime factorization with exponents for a given number
+//
+// # Parameters
+// - `n` : Number to factorize
+factorize_exp : I64 -> Array (U32, U8);
+factorize_exp = |n| (
+    loop((2, n, []), |(d, n, factors)|
+        if n == 1 { break $ factors };
+        if n % d != 0 { continue $ (d + 1, n, factors) };
+        let factors = if factors.is_empty || factors.@(factors.get_size - 1).@0 != d.to_U32 {
+            factors.push_back((d.to_U32, 1_U8))
+        } else {
+            let last = factors.@(factors.get_size - 1);
+            let last = (last.@0, last.@1 + 1_U8);
+            factors.set(factors.get_size - 1, last)
+        };
+        continue $ (d, n / d, factors)
+    )
+);
+
+// Computes Euler's totient function φ(n)
+//
+// # Parameters
+// - `n`
+euler_tortient : I64 -> I64;
+euler_tortient = |n| (
+    if n == 1 { 1 };
+    loop((2, n, 1), |(d, n, tot)|
+        if n == 1 { break $ tot };
+        // Find the power q of d and the remaining n
+        let (q, n) = loop((1, n), |(q, n)|
+            if n % d != 0 { break $ (q, n) };
+            continue $ (q * d, n / d)
+        );
+        let tot = tot * (q - q / d);
+        continue $ (d + 1, n, tot)
+    )
+);

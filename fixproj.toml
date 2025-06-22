@@ -3,7 +3,7 @@
 name = "misc-algos"
 
 ## Project version (in semver). This is a required field.
-version = "0.7.3"
+version = "0.8.0"
 
 ## Project authors.
 authors = ["tttmmmyyyy"]
@@ -15,7 +15,7 @@ license = "MIT"
 [build]
 files = [
     "zp.fix",
-    "combinatorics.fix",
+    "arithmetic.fix",
     "traits.fix",
     "geometry.fix",
     "graph.fix",
@@ -28,7 +28,7 @@ files = [
 files = [
     "test.fix",
     "zp-test.fix",
-    "combinatorics-test.fix",
+    "arithmetic-test.fix",
     "graph-test.fix",
     "geometry-test.fix",
 ]
@@ -63,3 +63,9 @@ git = { url = "https://github.com/tttmmmyyyy/fixlang-math.git" }
 name = "binary-heap"
 version = "0.1.0"
 git = { url = "https://github.com/tttmmmyyyy/fixlang-binary-heap.git" }
+
+
+[[dependencies]]
+name = "bool-array"
+version = "0.1.0"
+git = { url = "https://github.com/tttmmmyyyy/bool-array.git" }
