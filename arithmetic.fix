@@ -50,7 +50,7 @@ make_prime_table = |size| (
     let size = table.get_size;
     let table = table.set(0, false).set(1, false);
     let table = Iterator::range(2, size).loop_iter(table, |n, table|
-        if n >= (size - 1) / n { break $ table };
+        if n > (size - 1) / n { break $ table };
         if !table.@(n) { continue $ table };
         let table = Iterator::range_step(2 * n, size, n).fold(table, |m, table| table.set(m, false));
         continue $ table
