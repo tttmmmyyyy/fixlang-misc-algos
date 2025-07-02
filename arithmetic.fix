@@ -109,7 +109,7 @@ factorize_exp = |n| (
     )
 );
 
-// Computes Euler's totient function φ(n)
+// Computes Euler's tortient function φ(n)
 //
 // # Parameters
 // - `n`
@@ -126,4 +126,20 @@ euler_tortient = |n| (
         let tot = tot * (q - q / d);
         continue $ (d + 1, n, tot)
     )
+);
+
+// Computes Euler's tortient function φ(n) for all integers from 0 to n-1
+//
+// # Parameters
+// - `n` : Upper bound for the totient function (exclusive)
+euler_tortient_table : I64 -> Array I64;
+euler_tortient_table = |n| (
+    let table = Array::fill(n, 0);
+    let table = Iterator::range(0, n).fold(table, |i, table| table.set(i, i));
+    let table = Iterator::range(2, n).fold(table, |i, table|
+        let x = table.@(i);
+        if x != i { table };
+        Iterator::range_step(i, n, i).fold(table, |j, table| table.set(j, table.@(j) / i * (i - 1)))
+    );
+    table
 );

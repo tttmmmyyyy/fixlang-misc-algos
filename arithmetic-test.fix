@@ -146,6 +146,13 @@ test_euler_tortient = (
     pure()
 );    
 
+test_euler_tortient_table : IO ();
+test_euler_tortient_table = (
+    let euler_table = euler_tortient_table(21);
+    assert_eq(|_|"euler_table", euler_table, [0, 1, 1, 2, 2, 4, 2, 6, 4, 6, 4, 10, 4, 12, 6, 8, 8, 16, 6, 18, 8]);;
+    pure()
+);
+
 test : IO ();
 test = (
     test_binom_table;;
@@ -156,5 +163,6 @@ test = (
     test_factorize;;
     test_factorize_exp;;
     test_euler_tortient;;
+    test_euler_tortient_table;;
     pure()
 );
