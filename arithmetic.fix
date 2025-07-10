@@ -76,6 +76,35 @@ make_prime_list = |n| (
     list
 );
 
+type LeastPrimeTable = Array U32;
+type PrimeList = Array U32;
+
+// Performs a linear sieve to create a least prime table and a list of primes.
+linear_sieve : U32 -> (LeastPrimeTable, PrimeList);
+linear_sieve = |n| (
+    let lp = Array::fill(n.to_I64, 0_U32);
+    let ps = [];
+    Iterator::range(2, n.to_I64).fold((lp, ps), |i, (lp, ps)|
+        let (lp, ps) = if lp.@(i) == 0_U32 {
+            let p = i.to_U32;
+            let lp = lp.set(i, p);
+            let ps = ps.push_back(p);
+            (lp, ps)
+        } else {
+            (lp, ps)
+        };
+        ps.to_iter.loop_iter((lp, ps), |p, (lp, ps)|
+            if i * p.to_I64 >= n.to_I64 { break $ (lp, ps) };
+            let lp = lp.set(i * p.to_I64, p);
+            if p == lp.@(i) {
+                break $ (lp, ps)
+            } else {
+                continue $ (lp, ps)
+            }
+        )
+    )
+);
+
 // Performs integer factorization of a given number
 //
 // # Parameters
