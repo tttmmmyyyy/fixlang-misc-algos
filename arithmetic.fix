@@ -65,11 +65,8 @@ make_prime_table = |size| (
 make_prime_list : I64 -> Array U32;
 make_prime_list = |n| (
     let table = make_prime_table(n);
-    // eval debug_println $ "make_prime_list ok";
     let count = Iterator::range(0, n).fold(0, |i, cnt| if table.@(i) { cnt + 1 } else { cnt });
-    // eval debug_println $ "count ok: " + count.to_string;
     let list = Array::empty(count);
-    // eval debug_println $ "malloc ok: ";
     let list = Iterator::range(0, n).fold(list, |p, list|
         if table.@(p) { list.push_back(p.to_U32) } else { list }
     );
