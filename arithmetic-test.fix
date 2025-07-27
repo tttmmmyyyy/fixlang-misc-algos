@@ -68,6 +68,7 @@ test_prime_table = (
 test_prime_list : IO ();
 test_prime_list = (
     assert_eq(|_|"test_prime_list 1", make_prime_list(20).map(to_I64), [2, 3, 5, 7, 11, 13, 17, 19]);;
+    assert_eq(|_|"test_prime_list 2", make_prime_list(1e8).get_size, 5761455);;
     pure()
 );
 

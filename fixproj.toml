@@ -3,7 +3,7 @@
 name = "misc-algos"
 
 ## Project version (in semver). This is a required field.
-version = "0.8.2"
+version = "0.9.0"
 
 ## Project authors.
 authors = ["tttmmmyyyy"]
@@ -14,24 +14,16 @@ license = "MIT"
 
 [build]
 files = [
-    "zp.fix",
     "arithmetic.fix",
     "traits.fix",
     "geometry.fix",
-    "graph.fix",
     "functional.fix",
     "color.fix",
     "analysis.fix",
 ]
 
 [build.test]
-files = [
-    "test.fix",
-    "zp-test.fix",
-    "arithmetic-test.fix",
-    "graph-test.fix",
-    "geometry-test.fix",
-]
+files = ["test.fix", "arithmetic-test.fix", "geometry-test.fix"]
 # memcheck = true
 
 ## By "[[dependencies]]" array, you can specify a Fix project as a dependency.
