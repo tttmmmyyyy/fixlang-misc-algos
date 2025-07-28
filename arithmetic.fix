@@ -36,43 +36,6 @@ binomial_by_facts = |n, k, facts| (
 monomials_by_facts : [r : Ring, r : Div] I64 -> I64 -> Array r -> r;
 monomials_by_facts = |n, k, facts| binomial_by_facts(n + k - 1, n, facts);
 
-// Creates a prime table for the range [0, n).
-//
-// The array `table` is a prime table, meaning table[n] is true if n is prime, false otherwise.
-//
-// Supports up to around 10^10.
-//
-// # Parameters
-// - `size` : Size of the prime table.
-make_prime_table : I64 -> BoolArray;
-make_prime_table = |size| (
-    let table = BoolArray::make(size).fill_true;
-    let size = table.get_size;
-    let table = table.set(0, false).set(1, false);
-    let table = Iterator::range(2, size).loop_iter(table, |n, table|
-        if n > (size - 1) / n { break $ table };
-        if !table.@(n) { continue $ table };
-        let table = Iterator::range_step(2 * n, size, n).fold(table, |m, table| table.set(m, false));
-        continue $ table
-    );
-    table
-);
-
-// Creates a list of primes in the range [0, n)
-//
-// # Parameters
-// - `n` : Upper bound for primes (exclusive)
-make_prime_list : I64 -> Array U32;
-make_prime_list = |n| (
-    let table = make_prime_table(n);
-    let count = Iterator::range(0, n).fold(0, |i, cnt| if table.@(i) { cnt + 1 } else { cnt });
-    let list = Array::empty(count);
-    let list = Iterator::range(0, n).fold(list, |p, list|
-        if table.@(p) { list.push_back(p.to_U32) } else { list }
-    );
-    list
-);
-
 type LeastPrimeTable = Array U32;
 type PrimeList = Array U32;
 

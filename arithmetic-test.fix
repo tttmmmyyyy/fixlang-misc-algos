@@ -39,41 +39,6 @@ test_binomial_by_fact = (
     pure()
 );
 
-test_prime_table : IO ();
-test_prime_table = (
-    let prime_table = make_prime_table(20);
-    assert_eq(|_|"test_prime_table 0", prime_table.@(0), false);;
-    assert_eq(|_|"test_prime_table 1", prime_table.@(1), false);;
-    assert_eq(|_|"test_prime_table 2", prime_table.@(2), true);;
-    assert_eq(|_|"test_prime_table 3", prime_table.@(3), true);;
-    assert_eq(|_|"test_prime_table 4", prime_table.@(4), false);;
-    assert_eq(|_|"test_prime_table 5", prime_table.@(5), true);;
-    assert_eq(|_|"test_prime_table 6", prime_table.@(6), false);;
-    assert_eq(|_|"test_prime_table 7", prime_table.@(7), true);;
-    assert_eq(|_|"test_prime_table 8", prime_table.@(8), false);;
-    assert_eq(|_|"test_prime_table 9", prime_table.@(9), false);;
-    assert_eq(|_|"test_prime_table 10", prime_table.@(10), false);;
-    assert_eq(|_|"test_prime_table 11", prime_table.@(11), true);;
-    assert_eq(|_|"test_prime_table 12", prime_table.@(12), false);;
-    assert_eq(|_|"test_prime_table 13", prime_table.@(13), true);;
-    assert_eq(|_|"test_prime_table 14", prime_table.@(14), false);;
-    assert_eq(|_|"test_prime_table 15", prime_table.@(15), false);;
-    assert_eq(|_|"test_prime_table 16", prime_table.@(16), false);;
-    assert_eq(|_|"test_prime_table 17", prime_table.@(17), true);;
-    assert_eq(|_|"test_prime_table 18", prime_table.@(18), false);;
-    assert_eq(|_|"test_prime_table 19", prime_table.@(19), true);;
-    pure()
-);
-
-test_prime_list : IO ();
-test_prime_list = (
-    assert_eq(|_|"test_prime_list 1", make_prime_list(20).map(to_I64), [2, 3, 5, 7, 11, 13, 17, 19]);;
-    let (res, time) = consumed_time_while_lazy(|_| make_prime_list(1e8));
-    assert_eq(|_|"test_prime_list 2", res.get_size, 5761455);;
-    println $ "make_prime_list(1e8) took " + time.to_string + " s";;
-    pure()
-);
-
 test_factorize : IO ();
 test_factorize = (
     assert_eq(|_|"test_factorize 1", factorize_flat(1), []);;
@@ -198,8 +163,6 @@ test = (
     test_binom_table;;
     test_factorial_table;;
     test_binomial_by_fact;;
-    test_prime_table;;
-    test_prime_list;;
     test_factorize;;
     test_factorize_exp;;
     test_euler_tortient;;
