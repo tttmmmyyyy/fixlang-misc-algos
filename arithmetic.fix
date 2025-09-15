@@ -132,3 +132,24 @@ euler_tortient_table = |n| (
     );
     table
 );
+
+// Computes all divisors of a given number
+// 
+// This is implemented using simple trial division
+// 
+// # Parameters
+// - `n` : Number to compute divisors for
+divisors : I64 -> Array I64 = |n| (
+    if n == 0 { [] };
+    let divs = loop((1, []), |(d, divs)|
+        if d > n / d { break $ divs };
+        if n % d != 0 {
+            continue $ (d + 1, divs)
+        };
+        let divs = divs.push_back(d);
+        continue $ (d + 1, divs)
+    );
+    let d = divs.@(divs.get_size - 1);
+    let r = if d * d == n { divs.get_size - 2 } else { divs.get_size - 1 };
+    divs + range_step(r, -1, -1).map(|i| n / divs.@(i)).to_array
+);
