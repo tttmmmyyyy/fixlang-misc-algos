@@ -48,7 +48,7 @@ files = ["test.fix", "arithmetic-test.fix", "geometry-test.fix"]
 [[dependencies]]
 name = "math"
 version = "1.0.0"
-git = { url = "https://github.com/tttmmmyyyy/fixlang-math.git" }
+git = { url = "https://github.com/tttmmmyyyy/fixlang-math.git", rev = "e072aef74a55bbaae3f77924a06dfbc8ea42d984" }
 
 
 [[dependencies]]
