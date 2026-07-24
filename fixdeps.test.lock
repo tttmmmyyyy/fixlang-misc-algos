@@ -1,4 +1,4 @@
-proj_file_hash = "868aa752a56616bcfa903753ec777a64"
+proj_file_hash = "8bf7505b7503b707cfc191471c2e3fdb"
 
 [[dependencies]]
 name = "binary-heap"
@@ -20,9 +20,9 @@ rev = "bcfbde58e945e302751d81b34068885e26f7e611"
 
 [[dependencies]]
 name = "math"
-version = "1.2.1"
-path = ".fixlang/deps/math_1.2.1"
+version = "2.0.0"
+path = ".fixlang/deps/math_2.0.0"
 
 [dependencies.git]
 repo = "https://github.com/tttmmmyyyy/fixlang-math.git"
-rev = "c25c6a34fe3405ad6db6c704765de02b9b11efe4"
+rev = "803bfafbc3bdc23f2f9636ad7830a74345ff99bf"
