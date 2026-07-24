@@ -3,7 +3,8 @@
 name = "misc-algos"
 
 ## Project version (in semver). This is a required field.
-version = "0.11.0"
+version = "0.12.0"
+fix_version = "1.5.0"
 
 ## Project authors.
 authors = ["tttmmmyyyy"]
@@ -48,7 +49,7 @@ files = ["test.fix", "arithmetic-test.fix", "geometry-test.fix"]
 [[dependencies]]
 name = "math"
 version = "1.0.0"
-git = { url = "https://github.com/tttmmmyyyy/fixlang-math.git" }
+git = { url = "https://github.com/tttmmmyyyy/fixlang-math.git", rev = "c25c6a34fe3405ad6db6c704765de02b9b11efe4" }
 
 
 [[dependencies]]
